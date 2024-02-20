@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$md": {
+    "access": "private",
+    "name": "azure-storage-account-blob"
+  },
+  "type": "object",
+  "title": "Azure Blob Storage Account",
+  "description": "",
+  "additionalProperties": false,
+  "required": [
+    "data",
+    "specs"
+  ],
+  "properties": {
+    "data": {
+      "title": "Artifact Data",
+      "type": "object",
+      "required": [
+        "infrastructure"
+      ],
+      "properties": {
+        "infrastructure": {
+          "title": "Infrastructure configuration",
+          "type": "object",
+          "required": [
+            "ari",
+            "connection_string"
+          ],
+          "properties": {
+            "ari": {
+              "type": "string",
+              "title": "Azure Resource ID",
+              "description": "Azure Resource ID",
+              "examples": [
+                "/subscriptions/12345678-1234-1234-abcd-1234567890ab/resourceGroups/resource-group-name/providers/Microsoft.Network/virtualNetworks/network-name"
+              ],
+              "pattern": "^\/subscriptions\/[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}\/resource(g|G)roups\/[a-zA-Z0-9-_.()]{0,89}[a-zA-Z0-9-_()]\/providers\/Microsoft\\.[a-zA-Z]+\/[a-zA-Z]+(?:\/[a-zA-Z0-9-_.()]+)+$",
+              "message": {
+                "pattern": "Must be a valid Azure Resource ID"
+              }
+            },
+            "connection_string": {
+              "title": "Azure Storage Account Connection String",
+              "description": "Azure Storage Account connection string authentication",
+              "additionalProperties": false,
+              "examples": [
+                "DefaultEndpointsProtocol=https;AccountName=example;AccountKey=example;EndpointSuffix=core.windows.net"
+              ],
+              "type": "string"
+            }
+          }
+        },
+        "authentication": {
+          "title": "Authentication configuration",
+          "type": "object",
+          "required": [
+            "primary_access_key"
+          ],
+          "properties": {
+            "primary_access_key": {
+              "title": "Primary Access Key",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "specs": {
+      "title": "Artifact Specs",
+      "type": "object",
+      "properties": {
+        "azure": {
+          "properties": {
+            "region": {
+              "type": "string",
+              "title": "Azure Region",
+              "description": "Select the Azure region you'd like to provision your resources in."
+            }
+          }
+        }
+      }
+    }
+  }
+}

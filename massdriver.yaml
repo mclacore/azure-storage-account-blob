@@ -1,0 +1,48 @@
+schema: draft-07
+name: "azure-storage-account-blob"
+description: "Azure Blob storage is optimized for storing unstructured data. This storage solution is ideal for storing any files produced and consumed by your application internally."
+source_url: github.com/mclacore/azure-storage-account-blob
+access: private
+type: infrastructure
+
+params:
+  required:
+    - account
+  properties:
+    account:
+      title: Storage Account settings
+      type: object
+      required:
+        - region
+      properties:
+        region:
+          title: Region
+          description: The region where the storage account will be created. **Cannot be changed after deployment**.
+          $ref: https://raw.githubusercontent.com/massdriver-cloud/artifact-definitions/main/definitions/types/azure-region.json
+          $md.immutable: true
+
+connections:
+  required:
+    - azure_service_principal
+  properties:
+    azure_service_principal:
+      $ref: massdriver/azure-service-principal
+
+artifacts:
+  required:
+    - azure_storage_account_blob
+  properties:
+    azure_storage_account_blob:
+      $ref: lacore/azure-storage-account-blob
+
+ui:
+  ui:order:
+    - account
+    - "*"
+  account:
+    ui:order:
+      - region
+      - "*"
+    region:
+      ui:field: supportedCloudLocationsDropdown
+      cloudService: azure
