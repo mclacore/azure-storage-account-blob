@@ -20,4 +20,4 @@ jobs:
       - name: Publish Artifact Definition
         uses: massdriver-cloud/actions/definition_publish@v4
         with:
-          file-path: ./artifacts/azure-storage-account-blob.json
+          file: ./artifacts/azure-storage-account-blob.json
